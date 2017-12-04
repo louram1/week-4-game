@@ -1,138 +1,112 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-  <meta charset="UTF-8">
-  <title>Fridge Magnets</title>
+  <title>simple crystal game</title>
+     
+    <meta charset="UTF-8">
+
+     <meta charset="utf-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+     <title>Crystal Collector</title>
+    
+     <!-- Latest compiled and minified CSS -->
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+     <link rel="stylesheet" type="text/css" href="assets/css/style.css"> 
 </head>
-
-<!-- CSS Styles (These styles are provided to you. Don't touch these!) -->
-<style>
-  body {
-    background: url(Assets/fridge.png) no-repeat;
-  }
-
-  .letter {
-    width: 30px;
-    height: 30px;
-    border-style: solid;
-    padding: 2px;
-    float: left;
-    margin: 2px;
-  }
-
-  .letter-button-color {
-    color: darkcyan;
-  }
-
-  .fridge-color {
-    color: orange;
-  }
-
-  #display {
-    margin-top: 78px;
-    height: 500px;
-    width: 220px;
-    margin-left: 60px;
-  }
-
-  #buttons {
-    padding-top: 60px;
-  }
-
-  #clear {
-    margin-left: 20px;
-    font-size: 25px;
-    color: black;
-    border-style: solid;
-    width: 100px;
-  }
-</style>
-
 <body>
-  <div id="display"></div>
-  <div id="buttons"></div>
-  <button id="clear">clear</button>
+  <!-- JAVASCRIPT  -->
+  <!-- ========================================= -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>   
+  <script type="text/javascript" src="assets/javascript/game.js"></script>
+  
+  <div class="container">
+      <div class="jumbotron" style="background-color: purple; color:white">
+          <h1 class="text-center"><strong>Crystal Collector</strong></h1>        
+      </div> <!-- jumbotron dic -->  
+      <div class="row">
+        <!-- design the intructions panel -->
+        <div class="col-lg-12">
+          <!-- span the entire page -->
+          <div class="panel panel-primary">
+              <div class="panel-heading">
+                <h1 class="panel-title text-center">Instructions</h1>
+                <div class="panel-body">
+                  <p><small>You will be given a random number at start of the game. There are four crystals below. By clicking on a crystal you will add a specific amount of points to your total score. You win the game by matching your total score to the random number. You lose the game if your total score goes above the random number. The value of each crystal is hidden from you until you click on it. Each time when the game starts, the game will change the values of each crystal</small></p>
+                </div>  
+              </div>  
+          </div>  
+        </div>
+      </div>
+      <!-- display the Target score section -->
+      <div class="row">
+        <div class="col-lg-3">
+            <div class="panel panel-primary">
+              <div class="panel-heading">
+                <h3 class="panel-title text-center">Target Score</h3>
+                <div class="panel-body">
+                  <h3 class="text-center" id="Target"><strong>75</strong></h3>
+                </div>  
+              </div>  
+            </div>  
+        </div>  
+        <!-- display the Your score section -->
+        <div class="col-lg-3">
+            <div class="panel panel-primary">
+              <div class="panel-heading">
+                <h3 class="panel-title text-center">Your Score</h3>
+                <div class="panel-body">
+                  <h3 id="Result" class="text-center">24</h3>
+                </div>  
+              </div>  
+            </div>  
+        </div>  
+        <!-- display the crystal selection section -->
+      
+        <div class="col-lg-6">
+            <div class="panel panel-primary">
+              <div class="panel-heading">
+                <h3 class="panel-title text-center">Select Any Crystal</h3>
+                <div class="panel-body text-center">
+                  <img id="Blue_Img" src="assets/images/blue.png" alt="" onclick="openOnBlueImageClick()">
+                  <img id="Red_Img" src="assets/images/red.png" alt="" onclick="openOnRedImageClick()">
+                  <img id="Yellow_Img" src="assets/images/yellow.png" alt="" onclick="openOnYellowImageClick()">
+                  <img id="Amber_Img" src="assets/images/amber.png" alt="" onclick="openOnAmberImageClick()">
+                </div>  
+              </div>  
+            </div>  
+        </div>  
+    </div> <!-- target score, your score and crystal selection section --> 
+    
+    <!-- Counters Section -->
+    <div class="row">
+      <div class="col-lg-6">
+            <div class="panel panel-primary">
+              <div class="panel-heading">
+                <h3 class="panel-title text-center">Your Win Count</h3>
+                <div class="panel-body text-center">
+                  <h3 id="WinCtr" class="text-center">300</h3>  
+                </div>  
+              </div>  
+            </div>  
+        </div> 
+        <div class="col-lg-6">
+            <div class="panel panel-primary">
+              <div class="panel-heading">
+                <h3 class="panel-title text-center">Your Loss Count</h3>
+                <div class="panel-body text-center">
+                  <h3 id="LoseCtr" class="text-center">500</h3>  
+                </div>  
+              </div>  
+            </div>  
+        </div> 
+    </div> <!-- end counter section -->   
 
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-  <script type="text/javascript">
-    $(document).ready(function() {
-
-      // Here we are provided an initial array of letters.
-      // Use this array to dynamically create buttons on the screen.
-      var letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "_"];
+  </div> <!-- container div -->
 
 
-      // MAJOR TASK #1: DYNAMICALLY CREATE BUTTONS
-      // =================================================================================
 
-      // 1. Create a for-loop to iterate through the letters array.
-      for (var i = 0; i < letters.length; i++) {
-
-        // Inside the loop...
-
-        // 2. Create a variable named "letterBtn" equal to $("<button>");
-        var letterBtn = $("<button>");
-
-        // 3. Then give each "letterBtn" the following classes: "letter-button" "letter" "letter-button-color".
-        letterBtn.addClass("letter-button letter letter-button-color");
-
-        // 4. Then give each "letterBtn" a data-attribute called "data-letter".
-        letterBtn.attr("data-letter", letters[i]);
-
-        // 5. Then give each "letterBtns" a text equal to "letters[i]".
-        letterBtn.text(letters[i]);
-
-        // 6. Finally, append each "letterBtn" to the "#buttons" div (provided).
-        $("#buttons").append(letterBtn);
-
-      }
-
-      // Be sure to test that your code works for this major task, before proceeding to the next one!
-
-      // MAJOR TASK #2: ATTACH ON-CLICK EVENTS TO "LETTER" BUTTONS
-      // =================================================================================
-
-      // 7. Create an "on-click" event attached to the ".letter-button" class.
-      $(".letter-button").on("click", function() {
-
-        // Inside the on-click event...
-
-        // 8. Create a variable called "fridgeMagnet" and set the variable equal to a new div.
-        var fridgeMagnet = $("<div>");
-
-        // 9. Give each "fridgeMagnet" the following classes: "letter fridge-color".
-        fridgeMagnet.addClass("letter fridge-color");
-
-        // 10. Then chain the following code onto the "fridgeMagnet" variable: .text($(this).attr("data-letter"))
-        // attr acts as both a setter and a getter for attributes depending on whether we supply one argument or two
-        // NOTE: There IS a $(data) jQuery method, but it doesn't do what you'd expect. So just use attr.
-        fridgeMagnet.text($(this).attr("data-letter"));
-        console.log(this);
-
-        // 11. Lastly append the fridgeMagnet variable to the "#display" div (provided);
-        $("#display").append(fridgeMagnet);
-
-      });
-
-      // Be sure to test that your code works for this major task, before proceeding to the next one!
-
-      // MAJOR TASK #3: ATTACH ON-CLICK EVENTS TO "CLEAR" BUTTON
-      // =================================================================================
-
-      // 12. Create an "on-click" event attached to the "#clear" button id.
-      $("#clear").on("click", function() {
-
-        // Inside the on-click event...
-
-        // 13. Use the jQuery "empty()" method to clear the contents of the "#display" div.
-        $("#display").empty();
-
-      });
-
-    });
-  </script>
+  
+  
 </body>
-
 </html>

@@ -1,0 +1,41 @@
+.crystal-image {
+      width: 300px;
+      height: 300px;
+    }
+
+.container {
+ border: 1px solid #4CAF50;
+}   
+
+/*
+#Target{
+	border: 1px solid #4CAF50;	
+}
+*/
+#Result{
+	border: 1px solid #4CAF50;	
+}
+
+#WinCtr{
+	border: 1px solid #4CAF50;	
+}
+
+#LoseCtr{
+	border: 1px solid #4CAF50;	
+}
+
+#Blue_Img{
+	border: 1px solid #4CAF50;	
+}
+
+#Red_Img{
+	border: 1px solid #4CAF50;	
+}
+
+#Yellow_Img{
+	border: 1px solid #4CAF50;	
+}
+#Amber_Img{
+	border: 1px solid #4CAF50;	
+}
+
